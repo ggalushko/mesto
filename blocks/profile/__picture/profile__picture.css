@@ -9,6 +9,6 @@
 
 @media (max-width: 740px) {
   .profile__picture {
-    justify-self: center;
+    justify-self:center;
  }
 }

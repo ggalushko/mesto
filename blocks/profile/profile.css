@@ -11,13 +11,14 @@
 @media (max-width: 740px) {
   .profile {
     justify-content: center;
-    grid-template-columns: max-content min-content;
-    grid-template-rows: repeat(4, max-content);
+    justify-items: center;
     grid-template-areas:
-      "image image"
+      "image ."
       "name edit-button"
-      "status status"
-      "add-button add-button";
+      "status ."
+      "add-button.";
+    grid-template-columns: max-content 0;
+    grid-template-rows: repeat(4, max-content);
   }
 }
 

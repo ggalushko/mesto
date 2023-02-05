@@ -9,7 +9,8 @@
 
 @media (max-width: 740px) {
   .profile__name {
-    justify-self: center;
+    font-size: 27px;
+    line-height: 33px;
     margin-left: 0;
     margin-top: 26px;
   }
