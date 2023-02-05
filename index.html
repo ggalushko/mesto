@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="pages/index.css">
-</head>
-<body class="page">
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
+
+  <body class="page">
     <main>
-        <header class="header">
-            <img src="images/logo.svg" alt="Логотип Mesto Russia" class="header__logo">
-        </header>
+      <header class="header">
+        <img
+          src="images/logo.svg"
+          alt="Логотип Mesto Russia"
+          class="header__logo"
+        />
+      </header>
+
+      <section class="profile">
+        <img
+          src="images/user.jpg"
+          alt="картинка профиля"
+          class="profile__picture"
+        />
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__status">Исследователь океана</p>
+        <button class="profile__button profile__button_type_edit">
+          <img src="images/edit.svg" alt="кнопка для редактирования" />
+        </button>
+        <button class="profile__button profile__button_type_add">
+          <img src="images/add.svg" alt="кнопка для добавления" />
+        </button>
+      </section>
     </main>
-    
-</body>
+  </body>
 </html>

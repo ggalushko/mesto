@@ -1,0 +1,14 @@
+.profile__picture {
+  grid-area: image;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 740px) {
+  .profile__picture {
+    justify-self: center;
+ }
+}

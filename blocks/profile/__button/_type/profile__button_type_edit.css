@@ -1,0 +1,18 @@
+.profile__button_type_edit {
+  grid-area: edit-button;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 18px;
+  margin-bottom: 16px;
+  padding: 7px;
+}
+
+@media (max-width: 740px) {
+  .profile__button_type_edit {
+    margin-left: 10px;
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+}
