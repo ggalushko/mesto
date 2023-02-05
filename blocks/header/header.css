@@ -1,0 +1,41 @@
+.header {
+  margin: 0 auto;
+  padding: 0 200px;
+  display: flex;
+  justify-content: flex-start;
+  max-width: 880px;
+  position: relative;
+}
+
+.header::after {
+  content: "";
+  display: block;
+  width: calc(100% - 400px);
+  height: 1px;
+  background: #545454;
+  bottom: 0px;
+  left: 200px;
+  position: absolute;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 0 50px;
+  }
+
+  .header::after {
+    width: calc(100% - 100px);
+    left: 50px;
+  }
+}
+
+@media (max-width: 450px) {
+  .header {
+    padding: 0;
+  }
+
+  .header::after {
+    width: 100%;
+    left: 0;
+  }
+}
