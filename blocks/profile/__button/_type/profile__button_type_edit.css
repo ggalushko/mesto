@@ -14,7 +14,7 @@
 
 @media (max-width: 740px) {
   .profile__button_type_edit {
-    transform: translate(-30px, 18px);
+    transform: translate(-20px, 18px);
     width: 18px;
     height: 18px;
     margin-left: 10px;

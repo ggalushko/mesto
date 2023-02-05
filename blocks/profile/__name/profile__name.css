@@ -1,4 +1,5 @@
 .profile__name {
+  max-width: 295px;
   grid-area: name;
   margin: 0 0 0 30px;
   font-weight: 500;
@@ -9,6 +10,7 @@
 
 @media (max-width: 740px) {
   .profile__name {
+    max-width: 190px;
     font-size: 27px;
     line-height: 33px;
     margin-left: 0;
