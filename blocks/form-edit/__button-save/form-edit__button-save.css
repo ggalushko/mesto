@@ -1,0 +1,19 @@
+.form-edit__button-save {
+  background-color: black;
+  color: white;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  font-size: 18px;
+  line-height: 22px;
+  border-radius: 3%;
+  border: none;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media (max-width: 425px) {
+  .form-edit__button-save {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
