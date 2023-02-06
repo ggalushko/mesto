@@ -9,3 +9,7 @@
   border: none;
   background-color: #fff;
 }
+
+.like-button:active {
+  background-image: url("../../../images/like-active.svg");
+}

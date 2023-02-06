@@ -26,3 +26,6 @@
 @import url("../blocks/form-edit/__input/form-edit__input.css");
 @import url("../blocks/form-edit/__button-save/form-edit__button-save.css");
 @import url("../blocks/hidden/hidden.css");
+@import url("../blocks/hover-opacity/_50/hover-opacity_50.css");
+@import url("../blocks/hover-opacity/_60/hover-opacity_60.css");
+@import url("../blocks/hover-opacity/_80/hover-opacity_80.css");
