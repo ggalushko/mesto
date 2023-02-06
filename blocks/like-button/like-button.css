@@ -16,5 +16,5 @@
 }
 
 .like-button:active {
-  background-image: url("../../../images/like-active.svg");
+  background-image: url("../../images/like-active.svg");
 }
