@@ -9,6 +9,11 @@
   border: none;
   background-color: rgba(0, 0, 0, 0.7);
   transform: translate(40px, -40px);
+  transition: opacity 0.2s;
+}
+
+.form-edit__button-close:hover {
+  opacity: 0.5;
 }
 
 @media (max-width: 450px) {

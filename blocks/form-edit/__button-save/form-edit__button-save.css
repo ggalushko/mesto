@@ -9,6 +9,11 @@
   border: none;
   font-size: 18px;
   line-height: 22px;
+  transition: opacity 0.2s;
+}
+
+.form-edit__button-save:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 425px) {

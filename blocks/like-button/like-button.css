@@ -8,6 +8,11 @@
   width: 22px;
   border: none;
   background-color: #fff;
+  transition: opacity 0.2s;
+}
+
+.like-button:hover {
+  opacity: 0.5;
 }
 
 .like-button:active {
