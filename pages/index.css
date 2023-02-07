@@ -19,10 +19,10 @@
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__caption/footer__caption.css");
 @import url("../blocks/popup/popup.css");
+@import url("../blocks/form-container/form-container.css");
+@import url("../blocks/form-container/__button-close/form-container__button-close.css");
 @import url("../blocks/form-edit/form-edit.css");
-@import url("../blocks/form-edit/__button-close/form-edit__button-close.css");
 @import url("../blocks/form-edit/__header/form-edit__header.css");
-@import url("../blocks/form-edit/__field/form-edit__field.css");
 @import url("../blocks/form-edit/__input/form-edit__input.css");
 @import url("../blocks/form-edit/__button-save/form-edit__button-save.css");
 @import url("../blocks/popup/_opened/popup_opened.css");

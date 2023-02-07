@@ -1,36 +1,30 @@
-let editBtn = document.querySelector(".profile__button_type_edit");
-let closeBtn = document.querySelector(".form-edit__button-close");
-let saveInfoBtn = document.querySelector(".form-edit__button-save");
+let editProfileBtn = document.querySelector(".profile__button_type_edit");
 let popup = document.querySelector(".popup");
+let closePopupBtn = document.querySelector(".form-container__button-close");
 
-editBtn.addEventListener("click", () => {
-  let fields = document.querySelectorAll(".form-edit__input");
-  let nameField = fields[0];
-  let infoField = fields[1];
+let form = document.querySelector(".form-edit");
+let fields = form.querySelectorAll(".form-edit__input");
 
+let profileName = document.querySelector(".profile__name");
+let profileInfo = document.querySelector(".profile__status");
+
+editProfileBtn.addEventListener("click", openPopup);
+closePopupBtn.addEventListener("click", closePopup);
+form.addEventListener("submit", editProfile);
+
+function closePopup() {
+  popup.classList.remove("popup_opened");
+}
+
+function openPopup() {
   popup.classList.add("popup_opened");
-  nameField.value = document.querySelector(".profile__name").textContent;
-  infoField.value = document.querySelector(".profile__status").textContent;
-});
+  fields[0].value = profileName.textContent;
+  fields[1].value = profileInfo.textContent;
+}
 
-closeBtn.addEventListener(
-  "click",
-  (e) => {
-    e.preventDefault();
-    popup.classList.remove("popup_opened");
-  },
-  false
-);
-
-saveInfoBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  let profileName = document.querySelector(".profile__name");
-  let profileInfo = document.querySelector(".profile__status");
-
-  let fields = document.querySelectorAll(".form-edit__input");
-
+function editProfile(event) {
+  event.preventDefault();
   profileName.textContent = fields[0].value;
   profileInfo.textContent = fields[1].value;
-
-  popup.classList.remove("popup_opened");
-});
+  closePopup();
+}
