@@ -21,7 +21,7 @@
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/form-container/form-container.css");
 @import url("../blocks/form-container/__button-close/form-container__button-close.css");
-@import url("../blocks/form-edit/form-edit.css");
+@import url("../blocks/form-wrapper/form-wrapper.css");
 @import url("../blocks/form-edit/__header/form-edit__header.css");
 @import url("../blocks/form-edit/__input/form-edit__input.css");
 @import url("../blocks/form-edit/__button-save/form-edit__button-save.css");
