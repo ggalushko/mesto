@@ -8,14 +8,7 @@
   margin-bottom: 16px;
   padding: 7px;
   background-image: url("../../../../images/edit.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: opacity 0.2s;
-  cursor: pointer;
-}
-
-.profile__button_type_edit:hover {
-  opacity: 0.6;
+  border: 1px solid #fff;
 }
 
 @media (max-width: 740px) {
