@@ -8,6 +8,7 @@
   font-size: 18px;
   line-height: 22px;
   transition: opacity 0.2s;
+  cursor: pointer;
 }
 
 .form-edit__button-save:hover {

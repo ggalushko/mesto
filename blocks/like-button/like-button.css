@@ -9,6 +9,7 @@
   border: none;
   background-color: #fff;
   transition: opacity 0.2s;
+  cursor: pointer;
 }
 
 .like-button:hover {

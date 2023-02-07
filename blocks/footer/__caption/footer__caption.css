@@ -4,3 +4,10 @@
   font-size: 18px;
   line-height: 22px;
 }
+
+@media (max-width: 425px) {
+  .footer__caption {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

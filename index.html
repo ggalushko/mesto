@@ -10,15 +10,15 @@
   </head>
 
   <body class="page">
-    <main>
-      <header class="header">
-        <img
-          src="images/logo.svg"
-          alt="Логотип Mesto Russia"
-          class="header__logo"
-        />
-      </header>
+    <header class="header">
+      <img
+        src="images/logo.svg"
+        alt="Логотип Mesto Russia"
+        class="header__logo"
+      />
+    </header>
 
+    <main>
       <section class="profile">
         <img
           src="images/user.jpg"
@@ -27,12 +27,8 @@
         />
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__status">Исследователь океана</p>
-        <button
-          class="profile__button profile__button_type_edit"
-        ></button>
-        <button
-          class="profile__button profile__button_type_add"
-        ></button>
+        <button class="profile__button profile__button_type_edit"></button>
+        <button class="profile__button profile__button_type_add"></button>
       </section>
 
       <div class="popup">
@@ -40,20 +36,18 @@
           <button class="form-edit__button-close"></button>
           <h2 class="form-edit__header">Редактировать профиль</h2>
           <div class="form-edit__field">
-            <input type="text" class="form-edit__input" placeholder="Имя" />
+            <input type="text" class="form-edit__input" placeholder="Имя" name="name" />
           </div>
           <div class="form-edit__field">
-            <input type="text" class="form-edit__input" placeholder="О себе" />
+            <input type="text" class="form-edit__input" placeholder="О себе" name="status"/>
           </div>
-          <button class="form-edit__button-save">
-            Сохранить
-          </button>
+          <button class="form-edit__button-save">Сохранить</button>
         </form>
       </div>
 
       <section class="cards">
         <article class="card">
-          <img src="images/karachaevsk.jpg" alt="" class="card__image" />
+          <img src="images/karachaevsk.jpg" alt="небольшой христианский каменный храм в горах" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Карачаевск</h2>
             <button class="like-button"></button>
@@ -61,7 +55,7 @@
         </article>
 
         <article class="card">
-          <img src="images/elbrus.jpg" alt="" class="card__image" />
+          <img src="images/elbrus.jpg" alt="вид с полей на гору Эльбрус на рассвете" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Гора Эльбрус</h2>
             <button class="like-button"></button>
@@ -69,7 +63,7 @@
         </article>
 
         <article class="card">
-          <img src="images/dombai.jpg" alt="" class="card__image" />
+          <img src="images/dombai.jpg" alt="вид на горный хребет и склоны" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Домбай</h2>
             <button class="like-button"></button>
@@ -77,7 +71,7 @@
         </article>
 
         <article class="card">
-          <img src="images/elbrus.jpg" alt="" class="card__image" />
+          <img src="images/elbrus.jpg" alt="вид с полей на гору Эльбрус на рассвете" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Гора Эльбрус</h2>
             <button class="like-button"></button>
@@ -85,7 +79,7 @@
         </article>
 
         <article class="card">
-          <img src="images/dombai.jpg" alt="" class="card__image" />
+          <img src="images/dombai.jpg" alt="вид на горный хребет и склоны" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Домбай</h2>
             <button class="like-button"></button>
@@ -93,17 +87,17 @@
         </article>
 
         <article class="card">
-          <img src="images/karachaevsk.jpg" alt="" class="card__image" />
+          <img src="images/karachaevsk.jpg" alt="небольшой христианский каменный храм в горах" class="card__image" />
           <div class="card__info">
             <h2 class="card__title">Карачаево-Черкессия</h2>
             <button class="like-button"></button>
           </div>
         </article>
       </section>
-
-      <footer class="footer">
-        <p class="footer__caption">© 2023 Mesto Russia</p>
-      </footer>
     </main>
+
+    <footer class="footer">
+      <p class="footer__caption">© 2023 Mesto Russia</p>
+    </footer>
   </body>
 </html>
