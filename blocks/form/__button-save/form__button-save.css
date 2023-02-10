@@ -1,4 +1,4 @@
-.form-edit__button-save {
+.form__button-save {
   background-color: black;
   width: 100%;
   color: white;
@@ -12,12 +12,12 @@
   cursor: pointer;
 }
 
-.form-edit__button-save:hover {
+.form__button-save:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 425px) {
-  .form-edit__button-save {
+  .form__button-save {
     font-size: 14px;
     line-height: 17px;
   }

@@ -37,25 +37,25 @@
         ></button>
       </section>
 
-      <div class="popup">
+      <div class="popup popup_edit-profile">
         <div class="form-container">
           <button type="reset" class="form-container__button-close"></button>
           <div class="form-wrapper">
-            <form action="/" class="form-edit" name="form-edit">
-              <h2 class="form-edit__header">Редактировать профиль</h2>
+            <form action="/" class="form" name="form">
+              <h2 class="form__header">Редактировать профиль</h2>
               <input
                 type="text"
-                class="form-edit__input"
+                class="form__input"
                 placeholder="Имя"
                 name="name"
               />
               <input
                 type="text"
-                class="form-edit__input"
+                class="form__input"
                 placeholder="О себе"
                 name="status"
               />
-              <button type="submit" class="form-edit__button-save">
+              <button type="submit" class="form__button-save">
                 Сохранить
               </button>
             </form>
@@ -63,83 +63,48 @@
         </div>
       </div>
 
-      <section class="cards">
-        <article class="card">
-          <img
-            src="images/karachaevsk.jpg"
-            alt="небольшой христианский каменный храм в горах"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Карачаевск</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img
-            src="images/elbrus.jpg"
-            alt="вид с полей на гору Эльбрус на рассвете"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img
-            src="images/dombai.jpg"
-            alt="вид на горный хребет и склоны"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img
-            src="images/elbrus.jpg"
-            alt="вид с полей на гору Эльбрус на рассвете"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img
-            src="images/dombai.jpg"
-            alt="вид на горный хребет и склоны"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img
-            src="images/karachaevsk.jpg"
-            alt="небольшой христианский каменный храм в горах"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Карачаево-Черкессия</h2>
-            <button type="button" class="like-button"></button>
-          </div>
-        </article>
-      </section>
+      <section class="cards"></section>
     </main>
+
+    <div class="popup popup_add-card">
+      <div class="form-container">
+        <button type="reset" class="form-container__button-close"></button>
+        <div class="form-wrapper">
+          <form action="/" class="form form__card" name="form-add">
+            <h2 class="form__header">Новое место</h2>
+            <input
+              type="text"
+              class="form__input"
+              placeholder="Название"
+              name="name"
+            />
+            <input
+              type="text"
+              class="form__input"
+              placeholder="Ссылка на картинку"
+              name="link"
+            />
+            <button type="submit" class="form__button-save">
+              Создать
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <footer class="footer">
       <p class="footer__caption">© 2023 Mesto Russia</p>
     </footer>
+
+    <template id="card-template">
+      <article class="card">
+        <button type="reset" class="card__delete-button"></button>
+        <img src="" alt="" class="card__image" />
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button type="button" class="like-button"></button>
+        </div>
+      </article>
+    </template>
   </body>
 </html>
