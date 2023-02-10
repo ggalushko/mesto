@@ -34,6 +34,7 @@ function editProfile(event) {
 }
 /*---------------------------------------------------------------------------------------------------------------------------------- */
 // Загрузка дефолтных карточек и добавление пользовательских
+
 const initialCards = [
   {
     name: "Архыз",
@@ -76,16 +77,26 @@ function showInitialCards() {
 
 showInitialCards();
 
-const addDeleteBtns = Array.from(
+const arrDeleteBtns = Array.from(
   document.querySelectorAll(".card__delete-button")
 );
 
-for (btn of addDeleteBtns) {
+for (btn of arrDeleteBtns) {
   btn.addEventListener("click", deleteCard);
 }
 
 function deleteCard(e) {
   e.target.closest(".card").remove();
+}
+
+const arrLikeBtns = Array.from(document.querySelectorAll(".like-button"));
+
+for (btn of arrLikeBtns) {
+  btn.addEventListener("click", pressLike);
+}
+
+function pressLike(e) {
+  e.target.classList.toggle("like-button_active");
 }
 
 const popupAddCard = document.querySelector(".popup_add-card");
@@ -114,7 +125,7 @@ function addCard(e) {
   const fields = addCardForm.querySelectorAll(".form__input");
   userCard.querySelector(".card__title").textContent = fields[0].value;
   userCard.querySelector(".card__image").src = fields[1].value;
-
+  userCard.querySelector(".like-button").addEventListener("click", pressLike);
   userCard
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard);
