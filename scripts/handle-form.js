@@ -2,9 +2,8 @@
 /*---------------------------------------------------------------------------------------------------------------------------------- */
 const editProfileBtn = document.querySelector(".profile__button_type_edit");
 const popupEditProfile = document.querySelector(".popup_edit-profile");
-const closeProfilePopupBtn = popupEditProfile.querySelector(
-  ".form-container__button-close"
-);
+
+const closeProfilePopupBtn = popupEditProfile.querySelector(".button-close");
 
 const form = popupEditProfile.querySelector(".form");
 const fields = form.querySelectorAll(".form__input");
@@ -101,9 +100,7 @@ function pressLike(e) {
 
 const popupAddCard = document.querySelector(".popup_add-card");
 const addCardBtn = document.querySelector(".profile__button_type_add");
-const closeAddCardPopup = popupAddCard.querySelector(
-  ".form-container__button-close"
-);
+const closeAddCardPopup = popupAddCard.querySelector(".button-close");
 
 addCardBtn.addEventListener("click", openCardPopup);
 closeAddCardPopup.addEventListener("click", closeCardPopup);
@@ -135,3 +132,25 @@ function addCard(e) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------- */
+// Открытие попапа с полным размером изображения
+
+const imagePopupTemplate = document.querySelector("#imagePopup").content;
+
+let aa = document.querySelector(".card__image");
+
+const images = document.querySelectorAll(".card__image");
+
+images.forEach((image) => image.addEventListener("click", openImage));
+
+function openImage(e) {
+  const imagePopup = imagePopupTemplate.querySelector(".popup").cloneNode(true);
+  const imageURL = e.target.src;
+  const imageCaption = aa
+    .closest(".card")
+    .querySelector(".card__title").textContent;
+  imagePopup.querySelector("img").src = imageURL;
+  imagePopup.querySelector(".image-container__caption").textContent =
+    imageCaption;
+  imagePopup.classList.add("popup_opened");
+  document.body.append(imagePopup);
+}

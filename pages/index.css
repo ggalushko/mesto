@@ -22,9 +22,13 @@
 @import url("../blocks/footer/__caption/footer__caption.css");
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/form-container/form-container.css");
-@import url("../blocks/form-container/__button-close/form-container__button-close.css");
+@import url("../blocks/button-close/button-close.css");
 @import url("../blocks/form-wrapper/form-wrapper.css");
 @import url("../blocks/form/__header/form__header.css");
 @import url("../blocks/form/__input/form__input.css");
 @import url("../blocks/form/__button-save/form__button-save.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
+@import url("../blocks/image-container/image-container.css");
+@import url("../blocks/image-container/__caption/image-container__caption.css");
+@import url("../blocks/image-full/image-full.css");
+

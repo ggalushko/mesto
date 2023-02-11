@@ -1,0 +1,16 @@
+.image-container {
+  margin: auto;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 80px;
+}
+
+@media (max-width: 580px) {
+  .image-container {
+    padding: 0 55px;
+  }
+}

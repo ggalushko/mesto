@@ -1,4 +1,4 @@
-.form-container__button-close {
+.button-close {
   background-image: url("../../../images/close.svg");
   background-size: contain;
   width: 32px;
@@ -12,12 +12,12 @@
   cursor: pointer;
 }
 
-.form-container__button-close:hover {
+.button-close:hover {
   opacity: 0.6;
 }
 
 @media (max-width: 450px) {
-  .form-container__button-close {
+  .button-close {
     width: 20px;
     height: 20px;
     transform: translate(0px, -16px);
