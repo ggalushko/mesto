@@ -37,30 +37,6 @@
         ></button>
       </section>
 
-      <div class="popup popup_edit-profile">
-        <div class="form-container">
-          <button type="reset" class="button-close"></button>
-          <div class="form-wrapper">
-            <form action="/" class="form" name="form">
-              <h2 class="form__header">Редактировать профиль</h2>
-              <input
-                type="text"
-                class="form__input"
-                placeholder="Имя"
-                name="name"
-              />
-              <input
-                type="text"
-                class="form__input"
-                placeholder="О себе"
-                name="status"
-              />
-              <button type="submit" class="form__button-save">Сохранить</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
       <section class="cards"></section>
     </main>
 
@@ -104,7 +80,7 @@
     </template>
 
     <template id="imagePopup">
-      <div class="popup">
+      <div class="dark-layout popup">
         <div class="image-container">
           <button type="reset" class="button-close"></button>
           <img class="image-full" alt="изображение в оригинальном формате" />
@@ -112,5 +88,29 @@
         </div>
       </div>
     </template>
+
+    <div class="popup popup_edit-profile">
+      <div class="form-container">
+        <button type="reset" class="button-close"></button>
+        <div class="form-wrapper">
+          <form action="/" class="form" name="form">
+            <h2 class="form__header">Редактировать профиль</h2>
+            <input
+              type="text"
+              class="form__input"
+              placeholder="Имя"
+              name="name"
+            />
+            <input
+              type="text"
+              class="form__input"
+              placeholder="О себе"
+              name="status"
+            />
+            <button type="submit" class="form__button-save">Сохранить</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
