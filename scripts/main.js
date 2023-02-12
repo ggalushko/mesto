@@ -49,7 +49,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 const cardsSection = document.querySelector(".cards");
 const popupAddCard = document.querySelector(".popup_add-card");
 const addCardBtn = document.querySelector(".profile__button_type_add");
-const addCardForm = document.querySelector(".form__card");
+const addCardForm = document.querySelector(".form-card");
 const closeAddCardPopupBtn = popupAddCard.querySelector(".button-close");
 
 addCardBtn.addEventListener("click", openCardPopup);
