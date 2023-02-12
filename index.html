@@ -44,7 +44,7 @@
       <div class="form-container">
         <button type="reset" class="button-close"></button>
         <div class="form-wrapper">
-          <form action="/" class="form-card" name="form-add">
+          <form action="/" class="form-card" name="form-add-image">
             <h2 class="form__header">Новое место</h2>
             <input
               type="text"
@@ -69,32 +69,19 @@
       <p class="footer__caption">© 2023 Mesto Russia</p>
     </footer>
 
-    <template id="card-template">
-      <article class="card">
-        <button type="reset" class="card__delete-button"></button>
-        <img src="/" alt="" class="card__image" />
-        <div class="card__info">
-          <h2 class="card__title"></h2>
-          <button type="button" class="like-button"></button>
-        </div>
-      </article>
-    </template>
-
-    <template id="imagePopup">
-      <div class="dark-layout popup">
-        <div class="image-container">
-          <button type="reset" class="button-close"></button>
-          <img class="image-full" alt="изображение в оригинальном формате" />
-          <p class="image-container__caption"></p>
-        </div>
+    <div class="dark-layout popup popup_image">
+      <div class="image-container">
+        <button type="reset" class="button-close"></button>
+        <img class="image-full" alt="изображение в оригинальном формате" />
+        <p class="image-container__caption"></p>
       </div>
-    </template>
+    </div>
 
     <div class="popup popup_edit-profile">
       <div class="form-container">
         <button type="reset" class="button-close"></button>
         <div class="form-wrapper">
-          <form action="/" class="form" name="form">
+          <form action="/" class="form" name="form-edit-profile">
             <h2 class="form__header">Редактировать профиль</h2>
             <input
               type="text"
@@ -113,5 +100,16 @@
         </div>
       </div>
     </div>
+
+    <template id="card-template">
+      <article class="card">
+        <button type="reset" class="card__delete-button"></button>
+        <img src="/" alt="" class="card__image" />
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button type="button" class="like-button"></button>
+        </div>
+      </article>
+    </template>
   </body>
 </html>
