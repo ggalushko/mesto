@@ -1,18 +1,11 @@
 .image-container {
-  margin: auto;
+  margin: 0 auto;
   width: fit-content;
   box-sizing: border-box;
   height: 100%;
   display: grid;
-  padding: 90px 80px 68px 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 580px) {
-  .image-container {
-    padding: 0 55px;
-  }
 }
