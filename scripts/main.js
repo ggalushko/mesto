@@ -17,7 +17,7 @@ const profileName = document.querySelector(".profile__name");
 const profileInfo = document.querySelector(".profile__status");
 
 editProfileBtn.addEventListener("click", openProfilePopup);
-closeProfilePopupBtn.addEventListener("click", closePopup);
+closeProfilePopupBtn.addEventListener("click", () => closePopup(popupEditProfile));
 profileForm.addEventListener("submit", editProfile);
 
 /*---------------------------------------------------------------------------------------------------------------------------------- */
@@ -61,7 +61,7 @@ const cardLinkInput = addCardForm.querySelector(".form__input:nth-of-type(2)");
 const closeAddCardPopupBtn = popupAddCard.querySelector(".button-close");
 const imagePopup = document.querySelector(".popup_image");
 
-closeAddCardPopupBtn.addEventListener("click", closePopup);
+closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 closeAddCardPopupBtn.addEventListener("click", clearAddCardForm);
 addCardBtn.addEventListener("click", () => openPopup(popupAddCard));
 addCardForm.addEventListener("submit", addCard);
@@ -86,7 +86,7 @@ function editProfile(e) {
   e.preventDefault();
   profileName.textContent = profileNameInput.value;
   profileInfo.textContent = profileInfoInput.value;
-  closePopup(e);
+  closePopup(popupEditProfile);
 }
 
 function createCard() {
@@ -116,7 +116,7 @@ function addCard(e) {
   cardsSection.prepend(card);
 
   addCardForm.reset();
-  closePopup(e);
+  closePopup(popupAddCard);
 }
 
 function deleteCard(e) {
@@ -151,7 +151,7 @@ function openImage(e) {
 
   imagePopup
     .querySelector(".button-close")
-    .addEventListener("click", closePopup);
+    .addEventListener("click", () => closePopup(imagePopup));
 
   openPopup(imagePopup);
 }
@@ -161,6 +161,6 @@ function clearAddCardForm(e) {
   e.target.closest(".form-container").querySelector(".form-card").reset();
 }
 
-function closePopup(e) {
-  e.target.closest(".popup").classList.remove("popup_opened");
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
 }
