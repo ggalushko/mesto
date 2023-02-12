@@ -45,42 +45,27 @@ const initialCards = [
 ];
 
 const cardTemplate = document.querySelector("#card-template").content;
+
 const cardsSection = document.querySelector(".cards");
-
-showInitialCards();
-
 const popupAddCard = document.querySelector(".popup_add-card");
 const addCardBtn = document.querySelector(".profile__button_type_add");
-const closeAddCardPopup = popupAddCard.querySelector(".button-close");
+const addCardForm = document.querySelector(".form__card");
+const closeAddCardPopupBtn = popupAddCard.querySelector(".button-close");
 
 addCardBtn.addEventListener("click", openCardPopup);
-closeAddCardPopup.addEventListener("click", closePopup);
-
-const addCardForm = document.querySelector(".form__card");
+closeAddCardPopupBtn.addEventListener("click", closePopup);
+closeAddCardPopupBtn.addEventListener("click", clearForm);
 addCardForm.addEventListener("submit", addCard);
+showInitialCards();
 
 /*---------------------------------------------------------------------------------------------------------------------------------- */
 // Открытие попапа с полным размером изображения
 
 const imagePopupTemplate = document.querySelector("#imagePopup").content;
 
-function openImage(e) {
-  const imagePopup = imagePopupTemplate.querySelector(".popup").cloneNode(true);
-  const imageURL = e.target.src;
-  const imageCaption = e.target
-    .closest(".card")
-    .querySelector(".card__title").textContent;
-  imagePopup.querySelector("img").src = imageURL;
-  imagePopup.querySelector(".image-container__caption").textContent =
-    imageCaption;
-  imagePopup
-    .querySelector(".button-close")
-    .addEventListener("click", closePopup);
-  imagePopup.classList.add("popup_opened");
-  document.body.append(imagePopup);
-}
 /*---------------------------------------------------------------------------------------------------------------------------------- */
 // Функции
+
 function showInitialCards() {
   for (card of initialCards) {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -99,33 +84,17 @@ function showInitialCards() {
   images.forEach((image) => image.addEventListener("click", openImage));
 }
 
-function closePopup(e) {
-  e.target.closest(".popup").classList.remove("popup_opened");
-}
-
 function openProfilePopup() {
   popupEditProfile.classList.add("popup_opened");
   fields[0].value = profileName.textContent;
   fields[1].value = profileInfo.textContent;
 }
 
-function editProfile(event) {
-  event.preventDefault();
+function editProfile(e) {
+  e.preventDefault();
   profileName.textContent = fields[0].value;
   profileInfo.textContent = fields[1].value;
-  closePopup(event);
-}
-
-function deleteCard(e) {
-  e.target.closest(".card").remove();
-}
-
-function pressLike(e) {
-  e.target.classList.toggle("like-button_active");
-}
-
-function openCardPopup() {
-  popupAddCard.classList.add("popup_opened");
+  closePopup(e);
 }
 
 function addCard(e) {
@@ -140,7 +109,45 @@ function addCard(e) {
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard);
   cardsSection.prepend(userCard);
-  Array.from(fields).map((field) => (field.value = ""));
 
+  clearForm(e);
   closePopup(e);
+}
+
+function deleteCard(e) {
+  e.target.closest(".card").remove();
+}
+
+function pressLike(e) {
+  e.target.classList.toggle("like-button_active");
+}
+
+function openCardPopup() {
+  popupAddCard.classList.add("popup_opened");
+}
+
+function clearForm(e) {
+  Array.from(
+    e.target.closest(".form-container").querySelectorAll(".form__input")
+  ).map((field) => (field.value = ""));
+}
+
+function openImage(e) {
+  const imagePopup = imagePopupTemplate.querySelector(".popup").cloneNode(true);
+  const imageURL = e.target.src;
+  const imageCaption = e.target
+    .closest(".card")
+    .querySelector(".card__title").textContent;
+  imagePopup.querySelector("img").src = imageURL;
+  imagePopup.querySelector(".image-container__caption").textContent =
+    imageCaption;
+  imagePopup
+    .querySelector(".button-close")
+    .addEventListener("click", closePopup);
+  imagePopup.classList.add("popup_opened");
+  document.body.append(imagePopup);
+}
+
+function closePopup(e) {
+  e.target.closest(".popup").classList.remove("popup_opened");
 }
