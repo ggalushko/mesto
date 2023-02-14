@@ -50,6 +50,7 @@ function createCard(cardName, cardLink) {
   const userCardImage = userCard.querySelector(".card__image");
   userCard.querySelector(".card__title").textContent = cardName;
   userCardImage.src = cardLink;
+  userCardImage.alt = cardName;
   userCardImage.addEventListener("click", openImage);
   userCard.querySelector(".like-button").addEventListener("click", pressLike);
   userCard
@@ -78,8 +79,6 @@ function pressLike(e) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  const innerForm = popup.querySelector(".form");
-  if (innerForm) innerForm.reset();
 }
 
 function openProfilePopup() {
@@ -117,6 +116,7 @@ editProfileForm.addEventListener("submit", editProfile);
 
 closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 addCardBtn.addEventListener("click", () => openPopup(popupAddCard));
+addCardBtn.addEventListener("click", () => addCardForm.reset());
 addCardForm.addEventListener("submit", addCard);
 
 imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
