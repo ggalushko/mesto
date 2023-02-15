@@ -52,7 +52,6 @@ function createCard(cardName, cardLink) {
   userCardImage.src = cardLink;
   userCardImage.alt = cardName;
   userCardImage.addEventListener("click", openImage);
-  userCard.querySelector(".like-button").addEventListener("click", pressLike);
   userCard
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard);
@@ -74,7 +73,7 @@ function deleteCard(e) {
 }
 
 function pressLike(e) {
-  e.target.classList.toggle("like-button_active");
+  if (e.target.classList.contains("like-button")) e.target.classList.toggle("like-button_active");
 }
 
 function openPopup(popup) {
@@ -118,5 +117,7 @@ closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 addCardBtn.addEventListener("click", () => openPopup(popupAddCard));
 addCardBtn.addEventListener("click", () => addCardForm.reset());
 addCardForm.addEventListener("submit", addCard);
+
+cardsSection.addEventListener("click", (e) => pressLike(e))
 
 imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
