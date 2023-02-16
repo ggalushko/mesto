@@ -47,19 +47,30 @@
           <form action="/" class="form form-card" name="form-add-image">
             <h2 class="form__header">Новое место</h2>
             <input
+              required
+              minlength="2"
+              maxlength="200"
               type="text"
               class="form__input form__input_title"
               placeholder="Название"
-              name="name"
+              name="title"
               maxlength="30"
             />
+            <p id="title-error" class="error-message"></p>
             <input
-              type="text"
+              required
+              type="url"
               class="form__input form__input_link"
               placeholder="Ссылка на картинку"
               name="link"
             />
-            <button type="submit" class="form__button-save">Создать</button>
+            <p id="link-error" class="error-message"></p>
+            <button
+              type="submit"
+              class="form__button-save form__button-save_disabled"
+            >
+              Создать
+            </button>
           </form>
         </div>
       </div>
@@ -84,17 +95,25 @@
           <form action="/" class="form" name="form-edit-profile">
             <h2 class="form__header">Редактировать профиль</h2>
             <input
+              required
+              minlength="2"
+              maxlength="40"
               type="text"
               class="form__input form__input_name"
               placeholder="Имя"
               name="name"
             />
+            <p id="name-error" class="error-message"></p>
             <input
+              minlength="2"
+              maxlength="200"
+              required
               type="text"
               class="form__input form__input_status"
               placeholder="О себе"
               name="status"
             />
+            <p id="status-error" class="error-message"></p>
             <button type="submit" class="form__button-save">Сохранить</button>
           </form>
         </div>
