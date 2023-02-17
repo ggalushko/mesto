@@ -40,6 +40,7 @@ addCardForm.addEventListener("submit", addCard);
 popupAddCard.addEventListener("click", (e) => {
   if (e.target.classList.contains("popup")) closePopup(popupAddCard);
 });
+
 closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 addCardBtn.addEventListener("click", () => {
   disableSubmitBtn(cardFormSubmitBtn);
@@ -53,6 +54,12 @@ editProfileBtn.addEventListener("click", () => {
   hideAllErrors(editProfileForm);
   openProfilePopup();
 });
+
+window.addEventListener("keydown", (e) => {
+  const openedPopup = document.querySelector(".popup_opened");
+  if (e.key === "Escape") closePopup(openedPopup);
+});
+
 popupEditProfile.addEventListener("click", (e) => {
   if (e.target.classList.contains("popup")) closePopup(popupEditProfile);
 });
