@@ -37,6 +37,9 @@ showInitialCards();
 cardsSection.addEventListener("click", (e) => pressLike(e));
 addCardForm.addEventListener("submit", addCard);
 
+popupAddCard.addEventListener("click", (e) => {
+  if (e.target.classList.contains("popup")) closePopup(popupAddCard);
+});
 closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 addCardBtn.addEventListener("click", () => {
   disableSubmitBtn(cardFormSubmitBtn);
@@ -50,12 +53,18 @@ editProfileBtn.addEventListener("click", () => {
   hideAllErrors(editProfileForm);
   openProfilePopup();
 });
+popupEditProfile.addEventListener("click", (e) => {
+  if (e.target.classList.contains("popup")) closePopup(popupEditProfile);
+});
 closeProfilePopupBtn.addEventListener("click", () =>
   closePopup(popupEditProfile)
 );
 editProfileForm.addEventListener("submit", editProfile);
 
 imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
+imagePopup.addEventListener("click", (e) => {
+  if (e.target.classList.contains("popup")) closePopup(imagePopup);
+});
 
 enableFormValidation(addCardForm);
 enableFormValidation(editProfileForm);

@@ -1,8 +1,7 @@
 .image-container {
-  margin: 0 auto;
+  margin: auto;
   width: fit-content;
   box-sizing: border-box;
-  height: 100%;
   display: grid;
   display: flex;
   flex-direction: column;
