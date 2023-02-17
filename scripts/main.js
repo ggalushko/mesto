@@ -33,8 +33,7 @@ const imageFullCaption = imagePopup.querySelector(".image-container__caption");
 const imagePopupCloseBtn = imagePopup.querySelector(".button-close");
 
 const cardFormSubmitBtn = popupAddCard.querySelector(".form__button-save");
-const profileFormSubmitBtn =
-    editProfileForm.querySelector(".form__button-save");
+const profileFormSubmitBtn = editProfileForm.querySelector(".form__button-save");
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
