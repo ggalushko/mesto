@@ -33,12 +33,12 @@ const imageFullCaption = imagePopup.querySelector(".image-container__caption");
 const imagePopupCloseBtn = imagePopup.querySelector(".button-close");
 
 const cardFormSubmitBtn = popupAddCard.querySelector(".form__button-save");
-const profileFormSubmitBtn = editProfileForm.querySelector(".form__button-save");
+const profileFormSubmitBtn =
+    editProfileForm.querySelector(".form__button-save");
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
 showInitialCards();
-cardsSection.addEventListener("click", (e) => pressLike(e));
 addCardForm.addEventListener("submit", addCard);
 
 popupAddCard.addEventListener("click", (e) => {
@@ -67,13 +67,6 @@ editProfileBtn.addEventListener("click", () => {
         "error-message_active"
     );
     openProfilePopup();
-});
-
-window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        const openedPopup = document.querySelector(".popup_opened");
-        closePopup(openedPopup);
-    }
 });
 
 popupEditProfile.addEventListener("click", (e) => {
@@ -119,7 +112,7 @@ function createCard(cardName, cardLink) {
     userCard
         .querySelector(".card__delete-button")
         .addEventListener("click", deleteCard);
-
+    userCard.querySelector(".like-button").addEventListener("click", pressLike);
     return userCard;
 }
 
@@ -137,8 +130,7 @@ function deleteCard(e) {
 }
 
 function pressLike(e) {
-    if (e.target.classList.contains("like-button"))
-        e.target.classList.toggle("like-button_active");
+    e.target.classList.toggle("like-button_active");
 }
 
 //------------------------- Поп-апы
@@ -152,6 +144,15 @@ function editProfile(e) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
+    popup.addEventListener("keydown", closePopupByEscBtn);
+}
+
+function closePopupByEscBtn(e) {
+    console.log(e.key);
+    if (e.key === "Escape") {
+        const openedPopup = document.querySelector(".popup_opened");
+        closePopup(openedPopup);
+    }
 }
 
 function openProfilePopup() {
@@ -175,4 +176,5 @@ function openImage(e) {
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
+    popup.removeEventListener("keydown", closePopupByEscBtn);
 }
