@@ -40,7 +40,6 @@ addCardForm.addEventListener("submit", addCard);
 
 popups.forEach((popup) =>
     popup.addEventListener("mousedown", (e) => {
-        console.log(e.target);
         if (
             e.target.classList.contains("popup") ||
             e.target.classList.contains("button-close")
