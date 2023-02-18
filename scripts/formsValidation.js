@@ -1,11 +1,11 @@
-export function enableFormsValidation(
+export function enableFormsValidation({
     formSelector,
     inputSelector,
     submitButtonSelector,
     inactiveButtonClass,
     inputErrorClass,
-    errorClass
-) {
+    errorClass,
+}) {
     const forms = Array.from(document.querySelectorAll(formSelector));
     forms.forEach((form) => {
         const inputs = Array.from(form.querySelectorAll(inputSelector));

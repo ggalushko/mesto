@@ -6,10 +6,9 @@ import {
     disableSubmitBtn,
 } from "./formsValidation.js";
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
-
+const popups = Array.from(document.querySelectorAll(".popup"));
 const editProfileBtn = document.querySelector(".profile__button_type_edit");
 const popupEditProfile = document.querySelector(".popup_edit-profile");
-const closeProfilePopupBtn = popupEditProfile.querySelector(".button-close");
 
 const editProfileForm = popupEditProfile.querySelector(".form");
 const profileNameInput = editProfileForm.querySelector(".form__input_name");
@@ -25,12 +24,10 @@ const addCardBtn = document.querySelector(".profile__button_type_add");
 const addCardForm = document.querySelector(".form-card");
 const cardTitleInput = addCardForm.querySelector(".form__input_title");
 const cardLinkInput = addCardForm.querySelector(".form__input_link");
-const closeAddCardPopupBtn = popupAddCard.querySelector(".button-close");
 
 const imagePopup = document.querySelector(".popup_image");
 const imageOpened = imagePopup.querySelector(".image-full");
 const imageFullCaption = imagePopup.querySelector(".image-container__caption");
-const imagePopupCloseBtn = imagePopup.querySelector(".button-close");
 
 const cardFormSubmitBtn = popupAddCard.querySelector(".form__button-save");
 const profileFormSubmitBtn =
@@ -41,11 +38,17 @@ const profileFormSubmitBtn =
 showInitialCards();
 addCardForm.addEventListener("submit", addCard);
 
-popupAddCard.addEventListener("click", (e) => {
-    if (e.target.classList.contains("popup")) closePopup(popupAddCard);
-});
+popups.forEach((popup) =>
+    popup.addEventListener("mousedown", (e) => {
+        console.log(e.target);
+        if (
+            e.target.classList.contains("popup") ||
+            e.target.classList.contains("button-close")
+        )
+            closePopup(popup);
+    })
+);
 
-closeAddCardPopupBtn.addEventListener("click", () => closePopup(popupAddCard));
 addCardBtn.addEventListener("click", () => {
     disableSubmitBtn(cardFormSubmitBtn, "form__button-save_disabled");
     hideFormErrors(
@@ -69,27 +72,24 @@ editProfileBtn.addEventListener("click", () => {
     openProfilePopup();
 });
 
-popupEditProfile.addEventListener("click", (e) => {
-    if (e.target.classList.contains("popup")) closePopup(popupEditProfile);
-});
-closeProfilePopupBtn.addEventListener("click", () =>
-    closePopup(popupEditProfile)
-);
 editProfileForm.addEventListener("submit", editProfile);
 
-imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
 imagePopup.addEventListener("click", (e) => {
-    if (e.target.classList.contains("popup")) closePopup(imagePopup);
+    if (
+        e.target.classList.contains("popup") ||
+        e.target.classList.contains("button-close")
+    )
+        closePopup(imagePopup);
 });
 
-enableFormsValidation(
-    ".form",
-    ".form__input",
-    ".form__button-save",
-    "form__button-save_disabled",
-    "form__input_error",
-    "error-message_active"
-);
+enableFormsValidation({
+    formSelector: ".form",
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button-save",
+    inactiveButtonClass: "form__button-save_disabled",
+    inputErrorClass: "form__input_error",
+    errorClass: "error-message_active",
+});
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 //------------------------- Карточки
@@ -108,7 +108,9 @@ function createCard(cardName, cardLink) {
     userCard.querySelector(".card__title").textContent = cardName;
     userCardImage.src = cardLink;
     userCardImage.alt = cardName;
-    userCardImage.addEventListener("click", openImage);
+    userCardImage.addEventListener("click", () =>
+        openImage(cardLink, cardName)
+    );
     userCard
         .querySelector(".card__delete-button")
         .addEventListener("click", deleteCard);
@@ -148,7 +150,6 @@ function openPopup(popup) {
 }
 
 function closePopupByEscBtn(e) {
-    console.log(e.key);
     if (e.key === "Escape") {
         const openedPopup = document.querySelector(".popup_opened");
         closePopup(openedPopup);
@@ -161,12 +162,7 @@ function openProfilePopup() {
     profileInfoInput.value = profileInfo.textContent;
 }
 
-function openImage(e) {
-    const imageURL = e.target.src;
-    const imageCaption = e.target
-        .closest(".card")
-        .querySelector(".card__title").textContent;
-
+function openImage(imageURL, imageCaption) {
     imageOpened.src = imageURL;
     imageOpened.alt = imageCaption;
     imageFullCaption.textContent = imageCaption;
