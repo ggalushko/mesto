@@ -78,7 +78,7 @@ function showInitialCards() {
 }
 
 function createCard(cardObj) {
-  return new Card(cardObj, cardTemplateSelector).getCard();
+  return new Card(cardObj, cardTemplateSelector, handleCardclick).getCard();
 }
 
 function addCard(e) {
@@ -105,6 +105,14 @@ function editProfile(e) {
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEscBtn);
+}
+
+function handleCardclick(e) {
+  imageOpened.src = e.target.src;
+  imageOpened.alt = e.target.alt;
+  imageFullCaption.textContent = e.target.alt;
+  imagePopup.classList.add("popup_opened");
+  document.addEventListener("keydown", (e) => _this.closePopupByEscBtn(e));
 }
 
 function closePopupByEscBtn(e) {
