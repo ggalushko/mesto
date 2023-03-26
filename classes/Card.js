@@ -1,12 +1,19 @@
-// содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
-// содержит приватные методы для каждого обработчика;
-// содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
-
 export class Card {
+  static imagePopup = document.querySelector(".popup_image");
+  static imageOpened = document.querySelector(".image-full");
+  static imageFullCaption = document.querySelector(".image-container__caption");
+
   constructor(cardData, templateSelector) {
-    this.name = cardData.name;
-    this.link = cardData.link;
-    this.templateSelector = templateSelector;
+    this._name = cardData.name;
+    this._link = cardData.link;
+    this._templateSelector = templateSelector;
+    this.cardTemplate = document.querySelector(this._templateSelector).content;
+    this._cardElement = this.cardTemplate.cloneNode(true);
+    this._imageElement = this._cardElement.querySelector(".card__image");
+    this._deleteButton = this._cardElement.querySelector(
+      ".card__delete-button"
+    );
+    this._likeButton = this._cardElement.querySelector(".like-button");
   }
 
   getCard() {
@@ -14,24 +21,19 @@ export class Card {
   }
 
   _createCard() {
-    const cardTemplate = document.querySelector(this.templateSelector).content;
-    const cardElement = cardTemplate.cloneNode(true);
-    const imageElement = cardElement.querySelector(".card__image");
-    const deleteButton = cardElement.querySelector(".card__delete-button");
-    const likeButton = cardElement.querySelector(".like-button");
+    this._cardElement.querySelector(".card__title").textContent = this._name;
+    this._imageElement.src = this._link;
+    this._imageElement.alt = this._name;
 
-    cardElement.querySelector(".card__title").textContent = this.name;
-    imageElement.src = this.link;
-    imageElement.alt = this.name;
+    this._setEventListeners();
 
-    this._setEventListeners(likeButton, deleteButton);
-
-    return cardElement;
+    return this._cardElement;
   }
 
-  _setEventListeners(likeButton, deleteButton) {
-    likeButton.addEventListener("click", this._pressLike);
-    deleteButton.addEventListener("click", this._deleteCard);
+  _setEventListeners() {
+    this._likeButton.addEventListener("click", this._pressLike);
+    this._deleteButton.addEventListener("click", this._deleteCard);
+    this._imageElement.addEventListener("click", this._openImage);
   }
 
   _pressLike(e) {
@@ -40,5 +42,24 @@ export class Card {
 
   _deleteCard(e) {
     e.target.closest(".card").remove();
+  }
+
+  _openImage(e) {
+    Card.imageOpened.src = e.target.src;
+    Card.imageOpened.alt = e.target.alt;
+    Card.imageFullCaption.textContent = e.target.alt;
+    Card.imagePopup.classList.add("popup_opened");
+    document.addEventListener("keydown", (e) => _this.closePopupByEscBtn(e));
+  }
+
+  _closePopupByEscBtn(e) {
+    if (e.key === "Escape") {
+      this._closeImage();
+    }
+  }
+
+  _closeImage() {
+    Card.imagePopup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", this._closePopupByEscBtn);
   }
 }

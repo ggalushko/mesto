@@ -16,16 +16,14 @@ export class FormValidator {
       this.inputErrorClass = inputErrorClass;
       this.errorClass = errorClass;
       this.form = form;
+      this.inputs = Array.from(this.form.querySelectorAll(this.inputSelector));
+      this.submitBtn = this.form.querySelector(this.submitButtonSelector);
     }
   }
 
   enableValidation() {
-    const inputs = Array.from(this.form.querySelectorAll(this.inputSelector));
-    const submitBtn = this.form.querySelector(this.submitButtonSelector);
-    this.form.addEventListener("input", () =>
-      this._setSubmitBtnState(inputs, submitBtn)
-    );
-    for (let input of inputs) {
+    this.form.addEventListener("input", () => this._setSubmitBtnState());
+    for (let input of this.inputs) {
       const errorElement = this.form.querySelector(`#${input.name}-error`);
       input.addEventListener("input", () =>
         this._validateInput(input, errorElement, input.validationMessage)
@@ -34,8 +32,7 @@ export class FormValidator {
   }
 
   hideErrors() {
-    const inputs = Array.from(this.form.querySelectorAll(this.inputSelector));
-    inputs.forEach((input) => {
+    this.inputs.forEach((input) => {
       const errorElement = this.form.querySelector(`#${input.name}-error`);
       this._hideInputError(input, errorElement);
     });
@@ -49,14 +46,14 @@ export class FormValidator {
     }
   }
 
-  _inputsAreValid(inputs) {
-    return inputs.every((input) => input.validity.valid);
+  _inputsAreValid() {
+    return this.inputs.every((input) => input.validity.valid);
   }
 
-  _setSubmitBtnState(inputs, submitButton) {
-    this._inputsAreValid(inputs)
-      ? this._enableSubmitBtn(submitButton)
-      : this._disableSubmitBtn(submitButton);
+  _setSubmitBtnState() {
+    this._inputsAreValid(this.inputs)
+      ? this.enableSubmitBtn()
+      : this.disableSubmitBtn();
   }
 
   _displayInputError(input, errorMessage, errorElement) {
@@ -71,13 +68,13 @@ export class FormValidator {
     errorElement.classList.remove(this.errorClass);
   }
 
-  _disableSubmitBtn(submitBtn) {
-    submitBtn.classList.add(this.inactiveButtonClass);
-    submitBtn.disabled = true;
+  disableSubmitBtn() {
+    this.submitBtn.classList.add(this.inactiveButtonClass);
+    this.submitBtn.disabled = true;
   }
 
-  _enableSubmitBtn(submitBtn) {
-    submitBtn.classList.remove(this.inactiveButtonClass);
-    submitBtn.disabled = false;
+  enableSubmitBtn() {
+    this.submitBtn.classList.remove(this.inactiveButtonClass);
+    this.submitBtn.disabled = false;
   }
 }
