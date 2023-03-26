@@ -1,10 +1,7 @@
 import initialCards from "./initialCards.js";
-import {
-  enableFormsValidation,
-  hideFormErrors,
-  enableSubmitBtn,
-  disableSubmitBtn,
-} from "./formsValidation.js";
+import { Card } from "../classes/Card.js";
+import { FormValidator } from "../classes/FormValidator.js";
+
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 const popups = Array.from(document.querySelectorAll(".popup"));
 const editProfileBtn = document.querySelector(".profile__button_type_edit");
@@ -17,7 +14,6 @@ const profileInfoInput = editProfileForm.querySelector(".form__input_status");
 const profileName = document.querySelector(".profile__name");
 const profileInfo = document.querySelector(".profile__status");
 
-const cardTemplate = document.querySelector("#card-template").content;
 const cardsSection = document.querySelector(".cards");
 const popupAddCard = document.querySelector(".popup_add-card");
 const addCardBtn = document.querySelector(".profile__button_type_add");
@@ -34,7 +30,6 @@ const profileFormSubmitBtn =
   editProfileForm.querySelector(".form__button-save");
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
-
 showInitialCards();
 addCardForm.addEventListener("submit", addCard);
 
@@ -48,38 +43,44 @@ popups.forEach((popup) =>
   })
 );
 
-addCardBtn.addEventListener("click", () => {
-  disableSubmitBtn(cardFormSubmitBtn, "form__button-save_disabled");
-  hideFormErrors(
-    addCardForm,
-    ".form__input",
-    "form__input_error",
-    "error-message_active"
-  );
-  addCardForm.reset();
-  openPopup(popupAddCard);
-});
-
+editProfileForm.addEventListener("submit", editProfile);
+const editProfileFormValidator = new FormValidator(
+  {
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button-save",
+    inactiveButtonClass: "form__button-save_disabled",
+    inputErrorClass: "form__input_error",
+    errorClass: "error-message_active",
+  },
+  editProfileForm
+);
+editProfileFormValidator.enableValidation();
 editProfileBtn.addEventListener("click", () => {
-  enableSubmitBtn(profileFormSubmitBtn, "form__button-save_disabled");
-  hideFormErrors(
-    editProfileForm,
-    ".form__input",
-    "form__input_error",
-    "error-message_active"
-  );
+  editProfileFormValidator.hideErrors();
+  profileFormSubmitBtn.classList.remove("form__button-save_disabled");
   openProfilePopup();
 });
 
-editProfileForm.addEventListener("submit", editProfile);
+const addCardFormValidator = new FormValidator(
+  {
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button-save",
+    inactiveButtonClass: "form__button-save_disabled",
+    inputErrorClass: "form__input_error",
+    errorClass: "error-message_active",
+  },
+  addCardForm
+);
+addCardFormValidator.enableValidation();
+addCardBtn.addEventListener("click", () => {
+  addCardFormValidator.hideErrors();
+  addCardForm.reset();
+  cardFormSubmitBtn.classList.add("form__button-save_disabled");
+  openPopup(popupAddCard);
+});
 
-enableFormsValidation({
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button-save",
-  inactiveButtonClass: "form__button-save_disabled",
-  inputErrorClass: "form__input_error",
-  errorClass: "error-message_active",
+cardsSection.addEventListener("mousedown", (e) => {
+  if (e.target.classList.contains("card__image")) openImage(e);
 });
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
@@ -87,41 +88,21 @@ enableFormsValidation({
 
 function showInitialCards() {
   for (const card of initialCards) {
-    const newCard = createCard(card.name, card.link);
+    const newCard = new Card(card, "#card-template").getCard();
     cardsSection.append(newCard);
   }
 }
 
-function createCard(cardName, cardLink) {
-  const userCard = cardTemplate.cloneNode(true);
-
-  const userCardImage = userCard.querySelector(".card__image");
-  userCard.querySelector(".card__title").textContent = cardName;
-  userCardImage.src = cardLink;
-  userCardImage.alt = cardName;
-  userCardImage.addEventListener("click", () => openImage(cardLink, cardName));
-  userCard
-    .querySelector(".card__delete-button")
-    .addEventListener("click", deleteCard);
-  userCard.querySelector(".like-button").addEventListener("click", pressLike);
-  return userCard;
-}
-
 function addCard(e) {
   e.preventDefault();
-  const card = createCard(cardTitleInput.value, cardLinkInput.value);
+  const card = new Card(
+    { name: cardTitleInput.value, link: cardLinkInput.value },
+    "#card-template"
+  ).getCard();
   cardsSection.prepend(card);
 
   addCardForm.reset();
   closePopup(popupAddCard);
-}
-
-function deleteCard(e) {
-  e.target.closest(".card").remove();
-}
-
-function pressLike(e) {
-  e.target.classList.toggle("like-button_active");
 }
 
 //------------------------- Поп-апы
@@ -131,6 +112,14 @@ function editProfile(e) {
   profileName.textContent = profileNameInput.value;
   profileInfo.textContent = profileInfoInput.value;
   closePopup(popupEditProfile);
+}
+
+function openImage(e) {
+  imageOpened.src = e.target.src;
+  imageOpened.alt = e.target.alt;
+  imageFullCaption.textContent = e.target.alt;
+
+  openPopup(imagePopup);
 }
 
 function openPopup(popup) {
@@ -149,14 +138,6 @@ function openProfilePopup() {
   openPopup(popupEditProfile);
   profileNameInput.value = profileName.textContent;
   profileInfoInput.value = profileInfo.textContent;
-}
-
-function openImage(imageURL, imageCaption) {
-  imageOpened.src = imageURL;
-  imageOpened.alt = imageCaption;
-  imageFullCaption.textContent = imageCaption;
-
-  openPopup(imagePopup);
 }
 
 function closePopup(popup) {
