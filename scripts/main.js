@@ -71,7 +71,6 @@ addCardBtn.addEventListener("click", () => {
 
 function showInitialCards() {
   for (const card of initialCards) {
-    console.log(card);
     const newCard = createCard(card);
     cardsSection.append(newCard);
   }
@@ -111,8 +110,7 @@ function handleCardclick(e) {
   imageOpened.src = e.target.src;
   imageOpened.alt = e.target.alt;
   imageFullCaption.textContent = e.target.alt;
-  imagePopup.classList.add("popup_opened");
-  document.addEventListener("keydown", (e) => _this.closePopupByEscBtn(e));
+  openPopup(imagePopup);
 }
 
 function closePopupByEscBtn(e) {
