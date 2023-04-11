@@ -1,3 +1,4 @@
+import '../pages/index.css'
 import initialCards from "../data/initialCards.js";
 import { Card } from "../classes/Card.js";
 import { FormValidator } from "../classes/FormValidator.js";
