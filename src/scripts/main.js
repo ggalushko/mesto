@@ -1,7 +1,8 @@
-import '../pages/index.css'
+import "../pages/index.css";
 import initialCards from "../data/initialCards.js";
 import { Card } from "../classes/Card.js";
 import { FormValidator } from "../classes/FormValidator.js";
+import { Section } from "../classes/Section";
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 const popups = Array.from(document.querySelectorAll(".popup"));
@@ -15,7 +16,6 @@ const profileInfoInput = editProfileForm.querySelector(".form__input_status");
 const profileName = document.querySelector(".profile__name");
 const profileInfo = document.querySelector(".profile__status");
 
-const cardsSection = document.querySelector(".cards");
 const popupAddCard = document.querySelector(".popup_add-card");
 const addCardBtn = document.querySelector(".profile__button_type_add");
 const addCardForm = document.forms["form-add-card"];
@@ -36,7 +36,7 @@ const formConfig = {
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
-showInitialCards();
+
 addCardForm.addEventListener("submit", addCard);
 
 popups.forEach((popup) =>
@@ -70,12 +70,11 @@ addCardBtn.addEventListener("click", () => {
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 //------------------------- Карточки
 
-function showInitialCards() {
-  for (const card of initialCards) {
-    const newCard = createCard(card);
-    cardsSection.append(newCard);
-  }
-}
+const cardsSection = new Section(
+  { items: initialCards, renderer: (card) => createCard(card) },
+  ".cards"
+);
+cardsSection.renderAll();
 
 function createCard(cardObj) {
   return new Card(cardObj, cardTemplateSelector, handleCardclick).getCard();
