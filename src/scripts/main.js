@@ -3,6 +3,7 @@ import initialCards from "../data/initialCards.js";
 import { Card } from "../classes/Card.js";
 import { FormValidator } from "../classes/FormValidator.js";
 import { Section } from "../classes/Section";
+import { PopupWithImage } from "../classes/PopupWithImage";
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 const popups = Array.from(document.querySelectorAll(".popup"));
@@ -22,10 +23,6 @@ const addCardForm = document.forms["form-add-card"];
 const cardTitleInput = addCardForm.querySelector(".form__input_title");
 const cardLinkInput = addCardForm.querySelector(".form__input_link");
 const cardTemplateSelector = "#card-template";
-
-const imagePopup = document.querySelector(".popup_image");
-const imageOpened = imagePopup.querySelector(".image-full");
-const imageFullCaption = imagePopup.querySelector(".image-container__caption");
 
 const formConfig = {
   inputSelector: ".form__input",
@@ -93,6 +90,7 @@ function addCard(e) {
 }
 
 //------------------------- Поп-апы
+const imagePopup = new PopupWithImage(".popup_image");
 
 function editProfile(e) {
   e.preventDefault();
@@ -107,10 +105,7 @@ function openPopup(popup) {
 }
 
 function handleCardclick(e) {
-  imageOpened.src = e.target.src;
-  imageOpened.alt = e.target.alt;
-  imageFullCaption.textContent = e.target.alt;
-  openPopup(imagePopup);
+  imagePopup.open(e.target.src, e.target.alt);
 }
 
 function closePopupByEscBtn(e) {
