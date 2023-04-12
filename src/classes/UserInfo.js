@@ -7,7 +7,7 @@ export class UserInfo {
   getUserInfo() {
     const name = this._nameElement.innerText;
     const info = this._infoElement.innerText;
-    return { name, info };
+    return [name, info];
   }
   setUserInfo(name, info) {
     this._nameElement.innerText = name;
