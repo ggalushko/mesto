@@ -1,11 +1,11 @@
 import "../pages/index.css";
 import initialCards from "../data/initialCards.js";
-import { Card } from "../classes/Card.js";
-import { FormValidator } from "../classes/FormValidator.js";
-import { Section } from "../classes/Section";
-import { PopupWithImage } from "../classes/PopupWithImage";
-import { PopupWithForm } from "../classes/PopupWithForm";
-import { UserInfo } from "../classes/UserInfo";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section";
+import { PopupWithImage } from "../components/PopupWithImage";
+import { PopupWithForm } from "../components/PopupWithForm";
+import { UserInfo } from "../components/UserInfo";
 
 const formConfig = {
   inputSelector: ".form__input",
@@ -28,6 +28,7 @@ cardsSection.renderAll();
 
 // Создание попапа для добавления карточек
 const addCardPopup = new PopupWithForm(".popup_add-card", addCard);
+addCardPopup.setEventListeners();
 const addCardBtn = document.querySelector(".profile__button_type_add");
 addCardBtn.addEventListener("click", () => addCardPopup.open());
 
@@ -48,12 +49,13 @@ addCardBtn.addEventListener("click", () => {
 function createCard(cardObj) {
   return new Card(cardObj, cardTemplateSelector, handleCardclick).getCard();
 }
-function addCard(name, link) {
-  cardsSection.addItem(createCard({ name: name, link: link }));
+function addCard({ title, link }) {
+  cardsSection.addItem(createCard({ name: title, link: link }));
 }
 
 //------------------------- Поп-ап для раскрытия изображения
 const imagePopup = new PopupWithImage(".popup_image");
+imagePopup.setEventListeners();
 function handleCardclick(e) {
   imagePopup.open(e.target.src, e.target.alt);
 }
@@ -70,6 +72,8 @@ const profilePopup = new PopupWithForm(
   ".popup_edit-profile",
   user.setUserInfo.bind(user)
 );
+profilePopup.setEventListeners();
+
 const nameInput = document.querySelector(".form__input_name");
 const infoInput = document.querySelector(".form__input_status");
 
@@ -81,6 +85,8 @@ editProfileFormValidator.enableValidation();
 editProfileBtn.addEventListener("click", () => {
   editProfileFormValidator.hideErrors();
   editProfileFormValidator.enableSubmitBtn();
-  [nameInput.value, infoInput.value] = [...user.getUserInfo()];
+  const { name, info } = user.getUserInfo();
+  nameInput.value = name;
+  infoInput.value = info;
   profilePopup.open();
 });
