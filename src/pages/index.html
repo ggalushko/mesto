@@ -23,8 +23,8 @@
           alt="картинка профиля"
           class="profile__picture"
         />
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__status">Исследователь океана</p>
+        <h1 class="profile__name"></h1>
+        <p class="profile__status"></p>
         <button
           type="button"
           class="profile__button profile__button_type_edit"
@@ -53,12 +53,12 @@
               minlength="2"
               maxlength="30"
               type="text"
-              class="form__input form__input_title"
+              class="form__input form__input_name"
               placeholder="Название"
-              name="title"
+              name="name"
               autocomplete="off"
             />
-            <p id="title-error" class="error-message"></p>
+            <p id="name-error" class="error-message"></p>
             <input
               required
               type="url"
@@ -121,13 +121,26 @@
       </div>
     </div>
 
+    <div class="popup popup_delete-card">
+      <div class="form-container">
+        <button type="reset" class="button-close"></button>
+        <div class="form-wrapper">
+            <h2 class="form__header">Вы уверены?</h2>
+            <button type="submit" class="form__button-save" id="delete-card-button">Да</button>
+        </div>
+      </div>
+    </div>
+
     <template id="card-template">
       <article class="card">
         <button type="reset" class="card__delete-button"></button>
         <img src="/" alt="" class="card__image" />
         <div class="card__info">
-          <h2 class="card__title"></h2>
-          <button type="button" class="like-button"></button>
+          <h2 class="card__name"></h2>
+          <div class="button-container">
+            <button type="button" class="like-button"></button>
+            <p class="button-caption"></p>
+          </div>
         </div>
       </article>
     </template>

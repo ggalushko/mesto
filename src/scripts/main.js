@@ -1,11 +1,12 @@
 import "../pages/index.css";
-import initialCards from "../data/initialCards.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section";
 import { PopupWithImage } from "../components/PopupWithImage";
 import { PopupWithForm } from "../components/PopupWithForm";
 import { UserInfo } from "../components/UserInfo";
+import { Api } from "../api/Api";
+import { Popup } from "../components/Popup";
 
 const formConfig = {
   inputSelector: ".form__input",
@@ -20,11 +21,59 @@ const cardTemplateSelector = "#card-template";
 //------------------------- Карточки
 
 // Создание секции
+
+const cardsApi = new Api({
+  baseURL: "https://mesto.nomoreparties.co/v1/cohort-65",
+  headers: {
+    authorization: "47013706-890f-4248-97af-220f7fa64e36",
+    "Content-Type": "application/json",
+  },
+});
+
 const cardsSection = new Section(
-  { items: initialCards, renderer: (card) => createCard(card) },
+  { renderer: (card) => createCard(card) },
   ".cards"
 );
-cardsSection.renderAll();
+
+cardsApi
+  .getUserData()
+  .then((data) => user.setUserInfo({ name: data.name, status: data.about }));
+
+cardsApi.getInitialCards().then((initialCards) => {
+  cardsSection.renderAll(initialCards);
+});
+
+const deletePopup = new Popup(".popup_delete-card");
+deletePopup.setEventListeners();
+document.querySelector("#delete-card-button").addEventListener("click", () => {
+  deletePopup.close();
+  cardsApi.deleteCard(document.deleteImageId);
+});
+
+function openDeletePopUp() {
+  deletePopup.open();
+}
+
+function createCard(cardObj) {
+  return new Card(
+    cardObj,
+    cardTemplateSelector,
+    handleCardclick,
+    openDeletePopUp,
+    addLike,
+    removeLike
+  ).getCard();
+}
+
+// cardsApi.addLike("644d1a013bb4f201458ba42b").then(res => console.log("THUS IS RES", res))
+
+function addLike(id) {
+  cardsApi.addLike(id);
+}
+
+function removeLike(id) {
+  cardsApi.removeLike(id);
+}
 
 // Создание попапа для добавления карточек
 const addCardPopup = new PopupWithForm(".popup_add-card", addCard);
@@ -46,11 +95,12 @@ addCardBtn.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-function createCard(cardObj) {
-  return new Card(cardObj, cardTemplateSelector, handleCardclick).getCard();
-}
-function addCard({ title, link }) {
-  cardsSection.addItem(createCard({ name: title, link: link }));
+function addCard({ name, link }) {
+  cardsApi.addCard(name, link).then((res) => {
+    cardsSection.addItem(
+      createCard({ name: res.name, link: res.link, likes: res.likes })
+    );
+  });
 }
 
 //------------------------- Поп-ап для раскрытия изображения
@@ -67,15 +117,19 @@ const user = new UserInfo({
   infoSelector: ".profile__status",
 });
 
-const editProfileBtn = document.querySelector(".profile__button_type_edit");
-const profilePopup = new PopupWithForm(
-  ".popup_edit-profile",
-  user.setUserInfo.bind(user)
-);
-profilePopup.setEventListeners();
-
-const nameInput = document.querySelector(".form__input_name");
+const nameInput = document
+  .querySelector(".popup_edit-profile")
+  .querySelector(".form__input_name");
 const infoInput = document.querySelector(".form__input_status");
+
+const editProfileBtn = document.querySelector(".profile__button_type_edit");
+const profilePopup = new PopupWithForm(".popup_edit-profile", () => {
+  cardsApi
+    .editProfile({ name: nameInput.value, about: infoInput.value })
+    .then((data) => user.setUserInfo({ name: data.name, status: data.about }));
+});
+
+profilePopup.setEventListeners();
 
 const editProfileFormValidator = new FormValidator(
   formConfig,
