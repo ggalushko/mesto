@@ -3,9 +3,10 @@ export class Card {
     cardData,
     templateSelector,
     handleClick,
-    handleDelete,
+    verifyDelete,
     addLike,
-    removeLike
+    removeLike,
+    myId
   ) {
     this._name = cardData.name;
     this._link = cardData.link;
@@ -13,7 +14,7 @@ export class Card {
     this._likes = cardData.likes.length;
 
     this._handleClick = handleClick;
-    this._handleDelete = handleDelete;
+    this._verifyDelete = verifyDelete;
     this._addLike = addLike;
     this._removeLike = removeLike;
 
@@ -27,9 +28,8 @@ export class Card {
     this._likesCaptionElement =
       this._cardElement.querySelector(".button-caption");
     this._likesCaptionElement.textContent = this._likes;
-    this._isLiked = cardData.likes.some(
-      (obj) => obj._id === "e3f386d3579eace48d2b15ee"
-    );
+    this._isLiked = cardData.likes.some((obj) => obj._id === myId);
+    this._isMyCard = cardData.owner._id === myId;
 
     this._likeButton = this._cardElement.querySelector(".like-button");
     if (this._isLiked) this._likeButton.classList.add("like-button_active");
@@ -53,17 +53,23 @@ export class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", (e) => this._pressLike(e));
-    this._deleteButton.addEventListener("click", () => {
-      this._handleDelete();
-      document.deleteImageId = this._id;
-    });
-    this._deleteButton.addEventListener("click", this._deleteCard);
+    if (this._isMyCard) {
+      this._deleteButton.addEventListener("click", (e) => {
+        e.target.closest(".card").id = this._id;
+        document.deleteImageId = this._id;
+        this._verifyDelete();
+      });
+    } else {
+      this._deleteButton.remove();
+    }
     this._imageElement.addEventListener("click", this._handleClick);
   }
 
-  async _pressLike(e) {
+  _pressLike(e) {
     if (!this._isLiked) {
-      this._addLike(this._id).then((res) => this._setLikesNumber(res.likes.length));
+      this._addLike(this._id).then((res) =>
+        this._setLikesNumber(res.likes.length)
+      );
     } else {
       this._removeLike(this._id).then((res) =>
         this._setLikesNumber(res.likes.length)
@@ -71,10 +77,6 @@ export class Card {
     }
     this._isLiked = !this._isLiked;
     e.target.classList.toggle("like-button_active");
-  }
-
-  _deleteCard(e) {
-    e.target.closest(".card").remove();
   }
 
   _setLikesNumber(likesNumber) {

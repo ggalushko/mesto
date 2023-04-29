@@ -7,6 +7,7 @@ import { PopupWithForm } from "../components/PopupWithForm";
 import { UserInfo } from "../components/UserInfo";
 import { Api } from "../api/Api";
 import { Popup } from "../components/Popup";
+import { PopupVerify } from "../components/PopupVerify";
 
 const formConfig = {
   inputSelector: ".form__input",
@@ -43,15 +44,18 @@ cardsApi.getInitialCards().then((initialCards) => {
   cardsSection.renderAll(initialCards);
 });
 
-const deletePopup = new Popup(".popup_delete-card");
+const deletePopup = new PopupVerify(".popup_delete-card", deletePopupCallback);
 deletePopup.setEventListeners();
-document.querySelector("#delete-card-button").addEventListener("click", () => {
-  deletePopup.close();
-  cardsApi.deleteCard(document.deleteImageId);
-});
 
-function openDeletePopUp() {
+function verifyDelete(e) {
   deletePopup.open();
+}
+
+function deletePopupCallback() {
+  document.getElementById(`${document.deleteImageId}`).remove();
+  cardsApi.deleteCard(document.deleteImageId);
+  document.deleteImageId = null;
+  deletePopup.close();
 }
 
 function createCard(cardObj) {
@@ -59,14 +63,12 @@ function createCard(cardObj) {
     cardObj,
     cardTemplateSelector,
     handleCardclick,
-    openDeletePopUp,
+    verifyDelete,
     cardsApi.addLike.bind(cardsApi),
-    cardsApi.removeLike.bind(cardsApi)
+    cardsApi.removeLike.bind(cardsApi),
+    "e3f386d3579eace48d2b15ee"
   ).getCard();
 }
-
-// cardsApi.addLike("644d1a013bb4f201458ba42b").then(res => console.log("THUS IS RES", res))
-
 
 // Создание попапа для добавления карточек
 const addCardPopup = new PopupWithForm(".popup_add-card", addCard);
@@ -91,7 +93,7 @@ addCardBtn.addEventListener("click", () => {
 function addCard({ name, link }) {
   cardsApi.addCard(name, link).then((res) => {
     cardsSection.addItem(
-      createCard({ name: res.name, link: res.link, likes: res.likes })
+      createCard({ name: res.name, link: res.link, myId: res.owner._id })
     );
   });
 }
