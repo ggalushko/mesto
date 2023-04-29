@@ -80,8 +80,7 @@ export class Api {
       });
       const data = await res.json();
 
-      return data 
-
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -89,16 +88,14 @@ export class Api {
 
   async addLike(id) {
     try {
-      const res  = await fetch(`${this.options.baseURL}/cards/${id}/likes`, {
+      const res = await fetch(`${this.options.baseURL}/cards/${id}/likes`, {
         method: "PUT",
         headers: {
           ...this.options.headers,
         },
       });
       const data = await res.json();
-      console.log("Addlike in API: ", data)
-      return data 
-
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -106,14 +103,16 @@ export class Api {
 
   async removeLike(id) {
     try {
-      await fetch(`${this.options.baseURL}/cards/${id}/likes`, {
+      const res = await fetch(`${this.options.baseURL}/cards/${id}/likes`, {
         method: "DELETE",
         headers: {
           ...this.options.headers,
         },
       });
-      
-      console.log("Removelike in API: ")
+
+      const data = await res.json();
+      return data;
+
 
     } catch (error) {
       console.log(error);

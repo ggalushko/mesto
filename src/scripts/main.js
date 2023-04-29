@@ -60,20 +60,13 @@ function createCard(cardObj) {
     cardTemplateSelector,
     handleCardclick,
     openDeletePopUp,
-    addLike,
-    removeLike
+    cardsApi.addLike.bind(cardsApi),
+    cardsApi.removeLike.bind(cardsApi)
   ).getCard();
 }
 
 // cardsApi.addLike("644d1a013bb4f201458ba42b").then(res => console.log("THUS IS RES", res))
 
-function addLike(id) {
-  cardsApi.addLike(id);
-}
-
-function removeLike(id) {
-  cardsApi.removeLike(id);
-}
 
 // Создание попапа для добавления карточек
 const addCardPopup = new PopupWithForm(".popup_add-card", addCard);
