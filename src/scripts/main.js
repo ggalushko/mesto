@@ -6,7 +6,6 @@ import { PopupWithImage } from "../components/PopupWithImage";
 import { PopupWithForm } from "../components/PopupWithForm";
 import { UserInfo } from "../components/UserInfo";
 import { Api } from "../api/Api";
-import { Popup } from "../components/Popup";
 import { PopupVerify } from "../components/PopupVerify";
 
 const formConfig = {
@@ -19,6 +18,7 @@ const formConfig = {
 const cardTemplateSelector = "#card-template";
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
+
 //------------------------- Карточки
 
 // Создание секции
@@ -36,9 +36,10 @@ const cardsSection = new Section(
   ".cards"
 );
 
-cardsApi
-  .getUserData()
-  .then((data) => user.setUserInfo({ name: data.name, status: data.about }));
+cardsApi.getUserData().then((data) => {
+  user.setUserInfo({ name: data.name, status: data.about });
+  avatarElement.src = data.avatar;
+});
 
 cardsApi.getInitialCards().then((initialCards) => {
   cardsSection.renderAll(initialCards);
@@ -138,4 +139,28 @@ editProfileBtn.addEventListener("click", () => {
   nameInput.value = name;
   infoInput.value = info;
   profilePopup.open();
+});
+
+const avatarElement = document.querySelector(".profile__picture");
+const avatarClickArea = document.querySelector(".profile__dark-layout");
+
+const avatarPopup = new PopupWithForm(".popup_change-avatar", changeAvatar);
+avatarPopup.setEventListeners();
+
+function changeAvatar(image) {
+  console.log(image.link);
+  cardsApi
+    .changeAvatar(image.link)
+    .then((res) => (avatarElement.src = res.avatar));
+}
+
+const avatarPopupFormValidator = new FormValidator(
+  formConfig,
+  avatarPopup.form
+);
+avatarPopupFormValidator.enableValidation();
+avatarClickArea.addEventListener("click", () => {
+  avatarPopupFormValidator.hideErrors();
+  avatarPopupFormValidator.disableSubmitBtn();
+  avatarPopup.open();
 });

@@ -112,8 +112,26 @@ export class Api {
 
       const data = await res.json();
       return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  async changeAvatar(imageURL) {
+    try {
+      const res = await fetch(`${this.options.baseURL}/users/me/avatar`, {
+        method: "PATCH",
+        headers: {
+          ...this.options.headers,
+        },
+        body: JSON.stringify({
+          avatar: imageURL,
+        }),
+      });
 
+      const data = await res.json();
+      console.log(data);
+      return data;
     } catch (error) {
       console.log(error);
     }

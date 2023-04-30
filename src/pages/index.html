@@ -18,11 +18,13 @@
 
     <main>
       <section class="profile">
-        <img
-          src="<%=require('../images/user.jpg')%>"
-          alt="картинка профиля"
-          class="profile__picture"
-        />
+        <div class="profile__dark-layout">
+          <img
+            src="<%=require('../images/user.jpg')%>"
+            alt="картинка профиля"
+            class="profile__picture"
+          />
+        </div>
         <h1 class="profile__name"></h1>
         <p class="profile__status"></p>
         <button
@@ -134,6 +136,27 @@
             >
               Да
             </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup popup_change-avatar">
+      <div class="form-container">
+        <button type="reset" class="button-close"></button>
+        <div class="form-wrapper">
+          <form action="/" class="form" name="form-change-avatar">
+            <h2 class="form__header">Редактировать профиль</h2>
+            <input
+              required
+              type="url"
+              class="form__input form__input_link"
+              placeholder="Ссылка на картинку"
+              name="link"
+              autocomplete="off"
+            />
+            <p id="link-error" class="error-message"></p>
+            <button type="submit" class="form__button-save">Сохранить</button>
           </form>
         </div>
       </div>
