@@ -59,7 +59,7 @@ function addCard({ name, link }) {
   cardsApi.addCard(name, link).then((res) => {
     cardsSection.addItem(
       createCard({
-        ...res
+        ...res,
       })
     );
   });
@@ -100,7 +100,6 @@ addCardBtn.addEventListener("click", () => {
   addCardPopup.form.reset();
   addCardPopup.open();
 });
-
 
 //------------------------- Поп-ап для раскрытия изображения
 const imagePopup = new PopupWithImage(".popup_image");
