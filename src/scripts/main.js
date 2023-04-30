@@ -19,10 +19,7 @@ const cardTemplateSelector = "#card-template";
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-//------------------------- Карточки
-
-// Создание секции
-
+//------------------------- Инициализация API и получение данных пользователя
 const cardsApi = new Api({
   baseURL: "https://mesto.nomoreparties.co/v1/cohort-65",
   headers: {
@@ -31,19 +28,44 @@ const cardsApi = new Api({
   },
 });
 
-const cardsSection = new Section(
-  { renderer: (card) => createCard(card) },
-  ".cards"
-);
-
 cardsApi.getUserData().then((data) => {
   user.setUserInfo({ name: data.name, status: data.about });
   avatarElement.src = data.avatar;
 });
 
+//-------------------------  Отрисовка карточек
+
+const cardsSection = new Section(
+  { renderer: (card) => createCard(card) },
+  ".cards"
+);
 cardsApi.getInitialCards().then((initialCards) => {
   cardsSection.renderAll(initialCards);
 });
+
+function createCard(cardObj) {
+  return new Card(
+    cardObj,
+    cardTemplateSelector,
+    handleCardclick,
+    verifyDelete,
+    cardsApi.addLike.bind(cardsApi),
+    cardsApi.removeLike.bind(cardsApi),
+    "e3f386d3579eace48d2b15ee"
+  ).getCard();
+}
+
+function addCard({ name, link }) {
+  cardsApi.addCard(name, link).then((res) => {
+    cardsSection.addItem(
+      createCard({
+        ...res
+      })
+    );
+  });
+}
+
+//-------------------------  Отрисовка карточек
 
 const deletePopup = new PopupVerify(".popup_delete-card", deletePopupCallback);
 deletePopup.setEventListeners();
@@ -57,18 +79,6 @@ function deletePopupCallback() {
   cardsApi.deleteCard(document.deleteImageId);
   document.deleteImageId = null;
   deletePopup.close();
-}
-
-function createCard(cardObj) {
-  return new Card(
-    cardObj,
-    cardTemplateSelector,
-    handleCardclick,
-    verifyDelete,
-    cardsApi.addLike.bind(cardsApi),
-    cardsApi.removeLike.bind(cardsApi),
-    "e3f386d3579eace48d2b15ee"
-  ).getCard();
 }
 
 // Создание попапа для добавления карточек
@@ -91,13 +101,6 @@ addCardBtn.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-function addCard({ name, link }) {
-  cardsApi.addCard(name, link).then((res) => {
-    cardsSection.addItem(
-      createCard({ name: res.name, link: res.link, myId: res.owner._id })
-    );
-  });
-}
 
 //------------------------- Поп-ап для раскрытия изображения
 const imagePopup = new PopupWithImage(".popup_image");
@@ -141,6 +144,8 @@ editProfileBtn.addEventListener("click", () => {
   profilePopup.open();
 });
 
+//-------------------------  Изменение автара
+
 const avatarElement = document.querySelector(".profile__picture");
 const avatarClickArea = document.querySelector(".profile__dark-layout");
 
@@ -148,7 +153,6 @@ const avatarPopup = new PopupWithForm(".popup_change-avatar", changeAvatar);
 avatarPopup.setEventListeners();
 
 function changeAvatar(image) {
-  console.log(image.link);
   cardsApi
     .changeAvatar(image.link)
     .then((res) => (avatarElement.src = res.avatar));

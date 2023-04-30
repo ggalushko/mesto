@@ -8,10 +8,13 @@ export class Card {
     removeLike,
     myId
   ) {
+    this._isMyCard = cardData.owner?._id === myId;
+
     this._name = cardData.name;
     this._link = cardData.link;
     this._id = cardData._id;
-    this._likes = cardData.likes.length;
+    this._likes = cardData.likes;
+    this._likesAmount = this._likes.length;
 
     this._handleClick = handleClick;
     this._verifyDelete = verifyDelete;
@@ -27,9 +30,8 @@ export class Card {
     );
     this._likesCaptionElement =
       this._cardElement.querySelector(".button-caption");
-    this._likesCaptionElement.textContent = this._likes;
+    this._likesCaptionElement.textContent = this._likesAmount;
     this._isLiked = cardData.likes.some((obj) => obj._id === myId);
-    this._isMyCard = cardData.owner._id === myId;
 
     this._likeButton = this._cardElement.querySelector(".like-button");
     if (this._isLiked) this._likeButton.classList.add("like-button_active");
@@ -67,20 +69,17 @@ export class Card {
 
   _pressLike(e) {
     if (!this._isLiked) {
-      this._addLike(this._id).then((res) =>
-        this._setLikesNumber(res.likes.length)
-      );
+      this._addLike(this._id).then((res) => this._setLikesNumber(res.likes));
     } else {
-      this._removeLike(this._id).then((res) =>
-        this._setLikesNumber(res.likes.length)
-      );
+      this._removeLike(this._id).then((res) => this._setLikesNumber(res.likes));
     }
     this._isLiked = !this._isLiked;
     e.target.classList.toggle("like-button_active");
   }
 
-  _setLikesNumber(likesNumber) {
-    this._likes = likesNumber;
-    this._likesCaptionElement.textContent = this._likes;
+  _setLikesNumber(likes) {
+    this._likes = likes;
+    this._likesAmount = likes.length;
+    this._likesCaptionElement.textContent = likes.length;
   }
 }
