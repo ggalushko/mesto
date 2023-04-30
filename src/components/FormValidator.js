@@ -24,7 +24,7 @@ export class FormValidator {
   enableValidation() {
     this.form.addEventListener("input", () => this._setSubmitBtnState());
     for (let input of this.inputs) {
-      const errorElement = this.form.querySelector(`#${input.name}-error`);
+      const errorElement = this.form.querySelector(`.${input.name}-error`);
       input.addEventListener("input", () =>
         this._validateInput(input, errorElement, input.validationMessage)
       );
@@ -33,7 +33,7 @@ export class FormValidator {
 
   hideErrors() {
     this.inputs.forEach((input) => {
-      const errorElement = this.form.querySelector(`#${input.name}-error`);
+      const errorElement = this.form.querySelector(`.${input.name}-error`);
       this._hideInputError(input, errorElement);
     });
   }
