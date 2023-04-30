@@ -12,7 +12,6 @@ export class PopupVerify extends Popup {
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
       this._submitCallback();
-      this.close();
     });
   }
   close() {

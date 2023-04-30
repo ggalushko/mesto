@@ -69,11 +69,17 @@ export class Card {
 
   _pressLike(e) {
     if (!this._isLiked) {
-      this._addLike(this._id).then((res) => this._setLikesNumber(res.likes));
+      this._addLike(this._id).then((res) => {
+        this._setLikesNumber(res.likes);
+        this._isLiked = !this._isLiked;
+      }).catch(err => console.log(err));
     } else {
-      this._removeLike(this._id).then((res) => this._setLikesNumber(res.likes));
+      this._removeLike(this._id).then((res) => {
+        this._setLikesNumber(res.likes);
+        this._isLiked = !this._isLiked;
+      }).catch(err => console.log(err))
     }
-    this._isLiked = !this._isLiked;
+
     e.target.classList.toggle("like-button_active");
   }
 
