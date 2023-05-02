@@ -11,13 +11,10 @@ export class UserInfo {
     const info = this._infoElement.innerText;
     return { name, info };
   }
-  setUserInfo({ name, about, avatarURL, id }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._nameElement.innerText = name;
     this._infoElement.innerText = about;
-    this._avatarElement.src = avatarURL;
-    this.id = id;
-  }
-  changeAvatar(imageURL) {
-    this._avatarElement.src = imageURL;
+    this._avatarElement.src = avatar;
+    this.id = _id;
   }
 }

@@ -105,20 +105,20 @@ function deletePopupCallback() {
 }
 
 function addCard({ name, link }) {
+  addCardPopup.renderLoading(true);
   cardsApi
     .addCard(name, link)
     .then((res) => {
-      addCardPopup.renderLoading(true);
       cardsSection.addItem(
         createCard({
           ...res,
         })
       );
+      addCardPopup.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
       addCardPopup.renderLoading(false);
-      addCardPopup.close();
     });
 }
 
@@ -135,34 +135,29 @@ function createCard(cardObj) {
 }
 
 function profilePopupSubmit({ name, about }) {
+  profilePopup.renderLoading(true);
   cardsApi
     .editProfile({ name: name, about: about })
     .then((data) => {
-      profilePopup.renderLoading(true);
-      user.setUserInfo({
-        name: data.name,
-        about: data.about,
-        avatarURL: data.avatar,
-        id: data._id,
-      });
+      user.setUserInfo(data);
+      profilePopup.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
       profilePopup.renderLoading(false);
-      profilePopup.close();
     });
 }
 
 function changeAvatar(image) {
+  avatarPopup.renderLoading(true);
   cardsApi
     .changeAvatar(image.link)
     .then((res) => {
-      avatarPopup.renderLoading(true);
-      user.changeAvatar(res.avatar);
+      user.setUserInfo(res);
+      avatarPopup.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
       avatarPopup.renderLoading(false);
-      avatarPopup.close();
     });
 }

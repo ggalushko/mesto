@@ -23,12 +23,7 @@ import {
 
 Promise.all([cardsApi.getUserData(), cardsApi.getInitialCards()])
   .then(([userData, cards]) => {
-    user.setUserInfo({
-      name: userData.name,
-      about: userData.about,
-      avatarURL: userData.avatar,
-      id: userData._id,
-    });
+    user.setUserInfo(userData);
     cardsSection.renderAll(cards);
   })
   .catch((err) => console.log(err));
@@ -41,7 +36,7 @@ deletePopup.setEventListeners();
 profilePopup.setEventListeners();
 avatarPopup.setEventListeners();
 
-//-------------------------------------------------------------------- Включение валидации форм 
+//-------------------------------------------------------------------- Включение валидации форм
 
 addCardFormValidator.enableValidation();
 editProfileFormValidator.enableValidation();
